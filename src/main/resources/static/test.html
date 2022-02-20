@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>点击按钮动态增加输入框数量</title>
+</head>
+<body>
+<script>var i=1</script>
+<input type="button" onclick="document.body.insertAdjacentHTML('beforeEnd','物品名称： <input type=text name='+i+' value='+i+++'> <br>')" value="添加">
+</body>
+</html>

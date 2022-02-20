@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.rootdeng.esSearch.dao.HotSearchDao">
+    <resultMap type="com.example.rootdeng.esSearch.model.HotSearch" id="result">
+        <id property="id" column="id"/>
+        <result property="host" column="host" />
+        <result property="userAgent" column="user-agent" />
+        <result property="content" column="content" />
+    </resultMap>
+    <insert id="insertSearch" >
+        insert into hot_word(host,user_agent,content)
+        value(#{host},#{userAgent},#{content})
+    </insert>
+
+    <select id="hotWordCount" resultType="java.lang.String">
+      select content
+      from (
+          select content,count(content)
+          from hot_word
+          group by content
+          order by count(content) desc
+          limit 5
+      ) m
+    </select>
+</mapper>

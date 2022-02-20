@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8" />
+	<title>翻书</title>
+	<link rel="stylesheet" type="text/css" href="css/book.css">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/book.js"></script>
+</head>
+<body>
+<section id="knowledge" class="viewBlock">
+	<div class="bookBox">
+		<a class="lastBtn"><</a>
+		<a class="nextBtn">></a>
+		<div class="bookPage frist">
+			<img src="img/bg.jpg" height="500" width="400"/>
+		</div>
+		<div class="bookPage runPage">
+			<div class="bookWord">
+				<span>世界，你好</span> 这是我的第一版个人网站，本来我想做成个人博客，后来想想目前CSDN已经够用了，于是便打算改成个人项目展示，把最近能用到的大数据程序做成一个个小项目展示出来，欢迎大家一起讨论学习交流，大家共同学习进步吗。<br>
+				PS：开发中，随时改版<br>
+			</div>
+			<img src="img/hh.jpg" height="500" width="400"/>
+		</div>
+		<#list blogs as blog>
+            <div class="bookPage runPage">
+			    <div class="bookWord">
+				    <span>${(blog.brief)!}</span> ${(blog.synopsis)!}。<br> <a href="${(blog.link)!}" style="color:blue">传送门 >>></a>
+                    <a href="../blog/editdo?id=${blog.id}"><span class="pageNumber">${(blog_index+1)!}</span></a>
+	    		</div>
+                <img src="img/hh.jpg" height="500" width="500"/>
+	    	</div>
+        </#list>
+		<div class="bookPage last">
+			<div class="bookWord">
+				<span>末页</span>只有启程，才会到达理想和目的地，只有拼搏，才会获得辉煌的成功，只有播种，才会有收获。只有追求，才会品味堂堂正正的人<br>青春就是用来不断尝试的，你不试一试，谁知道能走到什么高度。
+				<span class="pageNumber">∞</span>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container" style="color:#333">
+	<div class="row clearfix">
+		<div class="col-md-2 column">
+		</div>
+		<div class="col-md-8 column">
+			<div class="alert alert-dismissable alert-info">
+				<h5 style="text-align:center">晋ICP备19005022号<br>友情连接：<a href="http://www.beian.miit.gov.cn">信息产业部备案管理系统网址</a></h5>
+			</div>
+		</div>
+		<div class="col-md-2 column">
+		</div>
+	</div>
+</div>
+</body>
+</html>

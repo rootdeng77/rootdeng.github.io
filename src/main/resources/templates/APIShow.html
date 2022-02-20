@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>关系图展示</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/4.2.1-rc1/echarts.js"></script>
+</head>
+<body>
+<div id="main" style="width:1000px;height:800px;align:center"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+    var categories = [0,1];
+    var browers=[]
+    var namess=[]
+    option = {
+        // 图的标题
+        title: {
+            text: 'API 接口及其调用数据表关系图展示'
+        },
+        // 提示框的配置
+        tooltip: {
+            formatter: function (x) {
+                return x.data.des;
+            }
+        },
+        // 工具箱
+        toolbox: {
+            // 显示工具箱
+            show: true,
+            feature: {
+                mark: {
+                    show: true
+                },
+                // 还原
+                restore: {
+                    show: true
+                },
+                // 保存为图片
+                saveAsImage: {
+                    show: true
+                }
+            }
+        },
+        legend: [{
+            // selectedMode: 'single',
+            data: categories.map(function (a) {
+                return a.name;
+            })
+        }],
+        series: [{
+            type: 'graph', // 类型:关系图
+            layout: 'force', //图的布局，类型为力导图
+            symbolSize: 40, // 调整节点的大小
+            roam: true, // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移,可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+            edgeSymbol: ['circle', 'arrow'],
+            edgeSymbolSize: [2, 10],
+            edgeLabel: {
+                normal: {
+                    textStyle: {
+                        fontSize: 20
+                    }
+                }
+            },
+            force: {
+                repulsion: 2500,
+                edgeLength: [10, 50]
+            },
+            draggable: true,
+            lineStyle: {
+                normal: {
+                    width: 2,
+                    color: '#4b565b',
+                }
+            },
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    formatter: function (x) {
+                        return x.data.name;
+                    }
+                }
+            },
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {}
+                }
+            },
+
+            // 数据
+            data: [],
+            links: [],
+            categories: categories,
+        }]
+    };
+
+    myChart.showLoading();
+    myChart.setOption(option);
+    $.ajax({
+        type: 'get',
+        async: true,          //异步请求（同步请求将会锁住浏览器，用户其他操作必须等待请求完成才可以执行）
+        url: '/getTarget',    //请求发送到TestServlet
+        dataType: 'json',
+        success: function (result) {
+            alert("上传成功")
+            console.log(result)
+            console.log("init result")
+            //请求成功时执行该函数内容，result即为服务器返回的json对象
+            if (result) {
+                console.log("init success")
+                console.log("nodes is ")
+                console.log(result.nodes)
+                console.log(result.nodes.length)
+                for (var i = 0; i < result.nodes.length; i++) {
+                    var m = [];
+                    m["name"] = result.nodes[i].name;    //挨个取出类别并填入类别数组
+                    m["symbolSize"] = result.nodes[i].symbolSize;
+                    m["category"] = result.nodes[i].category;
+                    m["des"] = result.nodes[i].des;
+                    if(m["name"]!=undefined&&m["name"]!=""){
+                        browers.push(result.nodes[i]);
+                    }
+                }
+                console.log("browers finished")
+                for (var i = 0; i < result.links.length; i++) {
+                    var m = {};
+                    m["source"] = result.links[i].source;    //挨个取出类别并填入类别数组
+                    m["target"] = result.links[i].target;
+                    m["name"] = result.links[i].name;
+                    m["desc"] = result.links[i].desc;
+                    namess.push(m);
+                }
+                browers=unique(browers)
+                console.log("namess finished")
+                console.log("browers look like")
+                console.log(browers)
+                console.log("namess look like ")
+                console.log(namess)
+                myChart.hideLoading();    //隐藏加载动画
+                myChart.setOption({//加载数据图表
+                    legend: {
+                        data: browers
+                    },
+                    series: [{
+                        // 根据名字对应到相应的系列
+                        data: browers,
+                        links: namess
+                    }]
+                });
+                console.log("we final finished")
+            }
+
+        },
+        error: function (errorMsg) {
+            //请求失败时执行该函数
+            alert("图表请求数据失败!");
+            myChart.hideLoading();
+        }
+    })
+
+    function unique(arr1) {
+        const res = new Map();
+        return arr1.filter((a) => !res.has(a.name) && res.set(a.name, 1))}
+</script>
+</body>
+</html>

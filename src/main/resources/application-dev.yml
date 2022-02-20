@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  jmx:
+    enabled: false
+  datasource:
+    url: jdbc:mysql://localhost:3306/mybatis?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT
+    username: debian-sys-maint
+    password: hfzSIQrLyRYR7ewh
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  freemarker:
+    template-loader-path: classpath:/templates
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: false
+    expose-session-attributes: false
+    request-context-attribute: request
+    suffix: .html
+
+mybatis:
+  typeAliasesPackage: com.example.rootdeng.Model
+  mapperLocations: classpath:mapper/**.xml
+
+testbean:
+  synopsis: "测试一下 synopsis"
+  brief: "测试一下"
+
+#本地文件夹
+accessFileDir:
+  public: file:///media/hadoop/文档/各种学习资料
+
+elasticsearch:
+  host: localhost
+  port: 9200
+
+#namesrv
+rocketmq:
+  name-server: localhost:9876
+  consumer:
+    group: my-group
+
+logging:
+  level:
+    root: DEBUG

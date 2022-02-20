@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../js/echarts.js" ></script>
+    <title>详情</title>
+    <style type="text/css">
+        body,table{
+            font-size:12px;
+        }
+        table{
+            table-layout:fixed;
+            empty-cells:show;
+            border-collapse: collapse;
+            margin:0 auto;
+        }
+        td{
+            height:30px;
+        }
+        h1,h2,h3{
+            font-size:12px;
+            margin:0;
+            padding:0;
+        }
+        .table{
+            border:1px solid #cad9ea;
+            color:#666;
+        }
+        .table th {
+            background-repeat:repeat-x;
+            height:30px;
+        }
+        .table td,.table th{
+            border:1px solid #cad9ea;
+            padding:0 1em 0;
+        }
+        .table tr.alter{
+            background-color:#f5fafe;
+        }
+        .chart_table{
+            min-width: 900px;
+        }
+    </style>
+</head>
+<body>
+<table class="table">
+    <tr>
+        <th style="width: 100px;">用户编号</th>
+        <th style="width: 100px;">IP地址</th>
+        <th style="width: 100px;">请求类型</th>
+        <th style="width: 100px;">首次登录时间</th>
+        <th style="width: 100px;">登陆次数</th>
+    </tr>
+    <#list userDetailList as u>
+        <tr>
+            <td style="width: 100px; text-align: center;">${u.imei }</td>
+            <td style="width: 100px; text-align: center;">${u.requestip }</td>
+            <td style="width: 100px; text-align: center;">${u.requesttypename }</td>
+            <td style="width: 100px; text-align: center;">${u.first_login_time }</td>
+            <td style="width: 100px; text-align: center;">${u.log_times }</td>
+        </tr>
+    </#list>
+</table>
+
+<div class="container" style="color:#333">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-8 column">
+            <div class="alert alert-dismissable alert-info">
+                <h5 style="text-align:center">晋ICP备19005022号<br>友情连接：<a href="http://www.beian.miit.gov.cn">信息产业部备案管理系统网址</a></h5>
+            </div>
+        </div>
+        <div class="col-md-2 column">
+        </div>
+    </div>
+</div>
+</body>
+</html>

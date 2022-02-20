@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>编辑页面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validateForm() {
+            var x=document.forms["myform"]["brief"].value;
+            if(x==""){
+                alert("必须填写简介");
+                return false;
+            }else if(x.length>40){
+                alert("简介长度不能超过40");
+                return false;
+            }
+            x=document.forms["myform"]["synopsis"].value;
+            if(x==""){
+                alert("必须填写描述");
+                return false;
+            }else if(x.length>500){
+                alert("描述长度不能超过500");
+                return false;
+            }
+            x=document.forms["myform"]["link"].value;
+            if(x==""){
+                alert("必须填写链接");
+                return false;
+            }else if(x.length>60){
+                alert("链接长度不能超过60");
+                return false;
+            }
+            alert("提交成功");
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div style="height:100px;text-align:center">
+        <h1>编辑页面</h1>
+    </div>
+        <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <div class="row clearfix">
+                            <div class="col-md-4 column">
+                            </div>
+                            <div class="col-md-4 column">
+                                <form role="form" action="../blog/editdo" name="myform" onsubmit="return validateForm()">
+                                    <div class="form-group">
+                                         <label for="brief">简介</label><input type="text" class="form-control" name="brief" id="brief" placeholder=${(Blog.brief)!"主要关键字"} value=${(Blog.brief)!}  />
+                                    </div>
+                                    <div class="form-group">
+                                         <label for="synopsis">描述</label>
+                                         <textarea class="form-control" rows="5" cols="42" placeholder="输入描述" name="synopsis" id="synopsis">${(Blog.synopsis)!}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                            <label for="link">链接</label><input type="text" class="form-control" name="link" id="link" placeholder=${(Blog.link)!"链接"} />
+                                    </div>
+                                    <button type="submit" class="btn btn-default">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button type="restart" class="btn btn-default">重置</button>
+                                    <input type="hidden" name="id" id="id" value="${(Blog.id)!}"/>
+                                </form>
+                            </div>
+                            <div class="col-md-4 column">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <div class="container" style="color:#333">
+        <div class="row clearfix">
+            <div class="col-md-2 column">
+            </div>
+            <div class="col-md-8 column">
+                <div class="alert alert-dismissable alert-info">
+                    <h5 style="text-align:center">晋ICP备19005022号<br>友情连接：<a href="http://www.beian.miit.gov.cn">信息产业部备案管理系统网址</a></h5>
+                </div>
+            </div>
+            <div class="col-md-2 column">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.rootdeng.Service.BlogMapper">
+    <resultMap type="com.example.rootdeng.Model.Blog" id="result">
+        <id property="id" column="id"/>
+        <result property="brief" column="brief" />
+        <result property="synopsis" column="synopsis" />
+        <result property="link" column="link" />
+    </resultMap>
+    <select id="getBlogs" resultMap="result">
+        select * from blogs where 1=1;
+    </select>
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into blogs values(default,#{brief},#{synopsis},#{link});
+    </insert>
+    <update id="update">
+        update blogs set brief=#{brief},synopsis=#{synopsis},link=#{link} where id=#{id};
+    </update>
+    <delete id="delete">
+        delete from blogs where id=#{id};
+    </delete>
+    <select id="getBlogById" resultMap="result">
+        select * from blogs where id=${id};
+    </select>
+</mapper>

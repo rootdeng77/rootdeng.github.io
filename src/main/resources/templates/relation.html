@@ -1,0 +1,294 @@
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="static/js/echarts.js"></script>
+    <title>趋势分析</title>
+    <style type="text/css">
+        body, table {
+            font-size: 12px;
+        }
+
+        table {
+            table-layout: fixed;
+            empty-cells: show;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+
+        td {
+            height: 30px;
+        }
+
+        h1, h2, h3 {
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .table {
+            border: 1px solid #cad9ea;
+            color: #666;
+        }
+
+        .table th {
+            background-repeat: repeat-x;
+            height: 30px;
+        }
+
+        .table td, .table th {
+            border: 1px solid #cad9ea;
+            padding: 0 1em 0;
+        }
+
+        .table tr.alter {
+            background-color: #f5fafe;
+        }
+
+        .chart_table {
+            min-width: 900px;
+        }
+    </style>
+</head>
+<body>
+<table class="chart_table">
+    <tr>
+        <td style="min-width: 600px;">
+            <div id="areaChannel" style="width: 600px;height:400px;"></div>
+        </td>
+        <td style="min-width: 300px; margin: 0px; padding: 0px;">
+            <table class="table">
+                <tr>
+                    <th style="width: 100px;">登陆区域</th>
+                    <th style="width: 100px;">渠道</th>
+                    <th style="width: 100px;">用户数</th>
+                </tr>
+                <#list areaChannelListAll as u>
+                <tr>
+                    <td style="width: 100px; text-align: center;">${u.areaname }</td>
+                    <td style="width: 100px; text-align: center;">${u.channelname }</td>
+                    <td style="width: 100px; text-align: center;">
+                        <a href="details?areaname=${u.areaname }&channelname=${u.channelname }">${u.num }</a>
+                    </td>
+                </tr>
+                </#list>
+        </table>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    var myChart=echarts.init(document.getElementById('main'))
+    option = {
+    title: {
+        text: ''
+    },
+    tooltip: {},
+    animationDurationUpdate: 1500,
+    animationEasingUpdate: 'quinticInOut',
+    label: {
+        normal: {
+            show: true,
+            textStyle: {
+                fontSize: 12
+            },
+        }
+    },
+    legend: {
+        x: "center",
+        show: false,
+        data: ["夫妻", "战友", '亲戚']
+    },
+    series: [
+
+        {
+            type: 'graph',
+            layout: 'force',
+            symbolSize: 45,
+            focusNodeAdjacency: true,
+            roam: true,
+            categories: [{
+                name: '夫妻',
+                itemStyle: {
+                    normal: {
+                        color: "#009800",
+                    }
+                }
+            }, {
+                name: '战友',
+                itemStyle: {
+                    normal: {
+                        color: "#4592FF",
+                    }
+                }
+            }, {
+                name: '亲戚',
+                itemStyle: {
+                    normal: {
+                        color: "#3592F",
+                    }
+                }
+            }],
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 12
+                    },
+                }
+            },
+            force: {
+                repulsion: 1000
+            },
+            edgeSymbolSize: [4, 50],
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 10
+                    },
+                    formatter: "{c}"
+                }
+            },
+            data: [{
+                name: '徐贱云',
+                draggable: true,
+            }, {
+                name: '冯可梁',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '邓志荣',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '李荣庆',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '郑志勇',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '赵英杰',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '王承军',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '陈卫东',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '邹劲松',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '赵成',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '陈现忠',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '陶泳',
+                category: 1,
+                draggable: true,
+            }, {
+                name: '王德福',
+                category: 1,
+                draggable: true,
+            }],
+            links: [{
+                source: 0,
+                target: 1,
+                category: 0,
+                value: '夫妻'
+            }, {
+                source: 0,
+                target: 2,
+                value: '子女'
+            }, {
+                source: 0,
+                target: 3,
+                value: '夫妻'
+            }, {
+                source: 0,
+                target: 4,
+                value: '父母'
+            }, {
+                source: 1,
+                target: 2,
+                value: '表亲'
+            }, {
+                source: 0,
+                target: 5,
+                value: '朋友'
+            }, {
+                source: 4,
+                target: 5,
+                value: '朋友'
+            }, {
+                source: 2,
+                target: 8,
+                value: '叔叔'
+            }, {
+                source: 0,
+                target: 12,
+                value: '朋友'
+            }, {
+                source: 6,
+                target: 11,
+                value: '爱人'
+            }, {
+                source: 6,
+                target: 3,
+                value: '朋友'
+            }, {
+                source: 7,
+                target: 5,
+                value: '朋友'
+            }, {
+                source: 9,
+                target: 10,
+                value: '朋友'
+            }, {
+                source: 3,
+                target: 10,
+                value: '朋友'
+            }, {
+                source: 2,
+                target: 11,
+                value: '同学'
+            }],
+            lineStyle: {
+                normal: {
+                    opacity: 0.9,
+                    width: 1,
+                    curveness: 0
+                }
+            }
+        }
+    ]
+};
+    myChart.setOption(option);
+</script>
+<hr/>
+
+<div class="container" style="color:#333">
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+        </div>
+        <div class="col-md-8 column">
+            <div class="alert alert-dismissable alert-info">
+                <h5 style="text-align:center">晋ICP备19005022号<br>友情连接：<a href="http://www.beian.miit.gov.cn">信息产业部备案管理系统网址</a></h5>
+            </div>
+        </div>
+        <div class="col-md-2 column">
+        </div>
+    </div>
+</div>
+</body>
+</html>
